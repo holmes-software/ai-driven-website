@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joshua Holmes — Software Engineer</title>
+    <link id="ai-styles" rel="stylesheet" href="" />
+    <style>
+      /* Baseline rules for the theme-control feedback. Kept out of the
+         LLM-generated stylesheet so they aren't wiped on theme change. */
+      @keyframes ai-shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-6px);
+        }
+        40% {
+          transform: translateX(6px);
+        }
+        60% {
+          transform: translateX(-4px);
+        }
+        80% {
+          transform: translateX(4px);
+        }
+      }
+      .theme-control input.invalid {
+        animation: ai-shake 0.4s ease;
+        background: #fee2e2 !important;
+        color: #991b1b !important;
+        border-radius: 999px !important;
+        outline: none !important;
+        box-shadow: 0 0 0 2px #dc2626 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="theme-control">
+      <input
+        id="theme-input"
+        type="text"
+        placeholder="Try: 'modern', 'forest', 'sunset', 'dark', 'warm'…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="theme-apply" type="button">Restyle</button>
+    </div>
+
+    <header class="site-header">
+      <h1 class="name">Joshua Holmes</h1>
+      <p class="title">Software Engineer</p>
+      <button id="download-resume" class="download-resume" type="button">
+        Download Resume
+      </button>
+    </header>
+
+    <main>
+      <section id="about" class="section about-section">
+        <h2>About</h2>
+        <div class="about">
+          <img class="profile-pic" alt="Profile picture" />
+          <p class="description"></p>
+        </div>
+      </section>
+
+      <section id="experience" class="section experience-section">
+        <h2>Experience</h2>
+        <ul class="experience-list"></ul>
+      </section>
+
+      <section id="projects" class="section projects-section">
+        <h2>Projects</h2>
+        <div class="projects-grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a
+        href="https://github.com/holmes-software"
+        target="_blank"
+        rel="noopener"
+        >GitHub</a
+      >
+      <a
+        href="https://www.linkedin.com/in/holmes-software"
+        target="_blank"
+        rel="noopener"
+        >LinkedIn</a
+      >
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

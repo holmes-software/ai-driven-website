@@ -1,0 +1,60 @@
+{
+  "about": {
+    "description": "Software engineer with a decade of experience building web platforms, distributed services, and developer tooling. I enjoy turning ambiguous problems into pragmatic, maintainable systems and mentoring teammates along the way.",
+    "profile_pic": "/api/images/profile.svg"
+  },
+  "experience": [
+    {
+      "title": "Senior Software Engineer",
+      "company": "GitHub",
+      "start": "2022-03",
+      "end": null,
+      "achievements": [
+        "Led the design and rollout of a service that handles millions of requests per day with sub-100ms p99 latency.",
+        "Mentored four junior engineers; two were promoted within a year.",
+        "Drove an initiative to consolidate three legacy services, cutting infrastructure cost by 38%."
+      ]
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Microsoft",
+      "start": "2018-06",
+      "end": "2022-02",
+      "achievements": [
+        "Shipped key features in Azure DevOps used by tens of thousands of teams.",
+        "Authored an internal Rust library adopted by five product teams.",
+        "Recognized with a quarterly engineering excellence award."
+      ]
+    },
+    {
+      "title": "Software Developer",
+      "company": "Acme Corp",
+      "start": "2015-09",
+      "end": "2018-05",
+      "achievements": [
+        "Built the company's first React-based admin dashboard from scratch.",
+        "Reduced page load time on the marketing site by 60% through bundling and CDN work."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "AI-Driven Personal Site",
+      "description": "A personal website where the visual style is generated on demand by an LLM from a theme prompt and the page's HTML.",
+      "image": "/api/images/projects/ai-site.svg",
+      "link": "https://github.com/holmes-software/ai-driven-website"
+    },
+    {
+      "title": "Open Source CLI Toolkit",
+      "description": "A collection of small, composable command-line utilities for everyday developer workflows, written in Rust.",
+      "image": "/api/images/projects/cli-toolkit.svg",
+      "link": "https://github.com/holmes-software"
+    },
+    {
+      "title": "Distributed Job Scheduler",
+      "description": "A horizontally scalable job scheduler with at-least-once delivery semantics, built as a learning exercise in distributed systems.",
+      "image": "/api/images/projects/scheduler.svg",
+      "link": "https://github.com/holmes-software"
+    }
+  ]
+}
