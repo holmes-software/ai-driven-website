@@ -34,6 +34,10 @@ test:
     cd backend && cargo test
     cd frontend && npm test
 
+build:
+    cd backend && cargo build && cargo build --release
+    cd frontend && npm run build
+
 # Build the production Docker image (frontend bundled into backend).
 build-docker:
     docker build -t ai-driven-website .
@@ -51,6 +55,9 @@ run-docker:
         -e REDIS_URL='redis://127.0.0.1:6379' \
          ${env_arg} \
         -p 8080:8080 ai-driven-website
+
+push-acr:
+    az acr build --registry genericregistry .
 
 # Format both projects in place.
 fmt:
