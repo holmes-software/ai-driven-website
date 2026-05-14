@@ -42,14 +42,16 @@ function renderProfile(profile: Profile) {
       .map(
         (e) => `
           <li class="experience-item">
-            <div class="role">${escapeHtml(e.title)}</div>
-            <div class="company">${escapeHtml(e.company)}</div>
-            <div class="dates">${escapeHtml(e.start)} — ${
+            <time class="experience-dates">${escapeHtml(e.start)} — ${
               e.end ? escapeHtml(e.end) : "Present"
-            }</div>
-            <ul class="achievements">
-              ${e.achievements.map((a) => `<li>${escapeHtml(a)}</li>`).join("")}
-            </ul>
+            }</time>
+            <div class="experience-body">
+              <h3 class="experience-role">${escapeHtml(e.title)}</h3>
+              <p class="experience-company">${escapeHtml(e.company)}</p>
+              <ul class="experience-achievements">
+                ${e.achievements.map((a) => `<li>${escapeHtml(a)}</li>`).join("")}
+              </ul>
+            </div>
           </li>`,
       )
       .join("");
@@ -99,6 +101,15 @@ function setControlsBusy(
   if (input) {
     input.disabled = busy;
     input.setAttribute("aria-busy", String(busy));
+    if (busy) {
+      // Stash the original placeholder so we can restore it after loading.
+      input.dataset.defaultPlaceholder = input.placeholder;
+      input.value = "";
+      input.placeholder = "Loading...";
+    } else if (input.dataset.defaultPlaceholder !== undefined) {
+      input.placeholder = input.dataset.defaultPlaceholder;
+      delete input.dataset.defaultPlaceholder;
+    }
   }
   if (button) {
     button.disabled = busy;
