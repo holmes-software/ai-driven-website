@@ -39,6 +39,7 @@ build:
     cd frontend && npm run build
 
 # Build the production Docker image (frontend bundled into backend).
+# NOTE: This is *not* a prerequisite for `push-acr`, since ACR will build automatically
 build-docker:
     docker build -t ai-driven-website .
 
@@ -56,8 +57,9 @@ run-docker:
          ${env_arg} \
         -p 8080:8080 ai-driven-website
 
+# Tar and send the repo to Azure to be built and pushed to ACR
 push-acr:
-    az acr build --registry genericregistry .
+    ./push_acr.sh
 
 # Format both projects in place.
 fmt:
