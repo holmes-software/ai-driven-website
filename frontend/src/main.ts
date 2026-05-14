@@ -42,6 +42,7 @@ function renderProfile(profile: Profile) {
       .map(
         (e) => `
           <li class="experience-item">
+            <span class="experience-marker" aria-hidden="true"></span>
             <time class="experience-dates">${escapeHtml(e.start)} — ${
               e.end ? escapeHtml(e.end) : "Present"
             }</time>

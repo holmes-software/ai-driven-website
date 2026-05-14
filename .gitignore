@@ -1,0 +1,2 @@
+# Need this because rust-analyzer starts in root dir when I open nvim
+target/

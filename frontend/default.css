@@ -213,8 +213,8 @@ button:disabled {
 
 .experience-item {
   display: grid;
-  grid-template-columns: minmax(110px, max-content) 1fr;
-  gap: 6px 14px;
+  grid-template-columns: auto minmax(110px, max-content) 1fr;
+  align-items: start;
   padding: 8px 0;
   border-bottom: 1px dotted var(--w98-shadow);
 }
@@ -226,6 +226,16 @@ button:disabled {
 .experience-dates {
   color: var(--w98-shadow);
   white-space: nowrap;
+  margin-right: 14px;
+}
+
+/*
+ * Marker slot reserved for the LLM. Hidden by default so the Win98 look
+ * stays a clean two-column layout. When the LLM wants a timeline dot/rail,
+ * it can override `display` and the middle grid track will grow to fit.
+ */
+.experience-marker {
+  display: none;
 }
 
 .experience-role {

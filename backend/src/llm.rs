@@ -8,7 +8,8 @@ fn build_messages_prompt(html: &str, theme: &str) -> String {
          Use the existing class names and element structure exactly as written. \
          The header should feel hero-like with the name prominent. \
          Project cards should be visually distinct and arranged in a responsive grid. \
-         Experience entries should read as a clear timeline. \
+         Experience entries should read as a clear timeline, but make sure the \
+         timeline components don't overlap the text. \
          Be tasteful: good typography, spacing, contrast, and a cohesive palette.\n\n\
          HTML:\n```html\n{html}\n```"
     )
