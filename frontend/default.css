@@ -1,0 +1,312 @@
+/*
+ * default.css — Windows 98 flavored default styling.
+ *
+ * Borrows palette, border idioms, and typography from 98.css (jdan/98.css)
+ * but targets our own semantic class hooks. No 98.css runtime dependency,
+ * no DOM mutation: the LLM still sees only our authored class names.
+ *
+ * Source order matters: this stylesheet sits in <head>; the LLM-generated
+ * stylesheet is appended later as <style id="ai-styles-inline">, so any
+ * matching rule there will win at equal specificity.
+ */
+
+:root {
+  --w98-text: #222222;
+  --w98-surface: #c0c0c0;
+  --w98-highlight: #ffffff;
+  --w98-face: #dfdfdf;
+  --w98-shadow: #808080;
+  --w98-frame: #0a0a0a;
+  --w98-dialog-blue: #000080;
+  --w98-dialog-blue-light: #1084d0;
+  --w98-link: #0000ff;
+
+  /* Real 98.css border idioms — beveled rectangles via stacked inset shadows. */
+  --w98-border-raised:
+    inset -1px -1px var(--w98-frame),
+    inset  1px  1px var(--w98-highlight),
+    inset -2px -2px var(--w98-shadow),
+    inset  2px  2px var(--w98-face);
+  --w98-border-sunken:
+    inset -1px -1px var(--w98-highlight),
+    inset  1px  1px var(--w98-frame),
+    inset -2px -2px var(--w98-face),
+    inset  2px  2px var(--w98-shadow);
+  --w98-border-window:
+    inset -1px -1px var(--w98-frame),
+    inset  1px  1px var(--w98-face),
+    inset -2px -2px var(--w98-shadow),
+    inset  2px  2px var(--w98-highlight);
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #008080; /* the iconic teal desktop */
+  color: var(--w98-text);
+  font-family: "MS Sans Serif", "Pixelated MS Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+body {
+  padding: 0 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 1rem auto 4rem;
+}
+
+/* ---------- Floating theme control (top-right toolbar) ---------- */
+
+.theme-control {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-window);
+  padding: 6px;
+  z-index: 100;
+}
+
+/* ---------- Inputs (sunken) ---------- */
+
+#theme-input {
+  font: inherit;
+  color: var(--w98-text);
+  background: var(--w98-highlight);
+  border: none;
+  box-shadow: var(--w98-border-sunken);
+  padding: 3px 6px;
+  outline: none;
+  min-width: 200px;
+}
+
+#theme-input:disabled {
+  background: var(--w98-surface);
+  color: var(--w98-shadow);
+}
+
+/* ---------- Buttons (raised; sunken when active) ---------- */
+
+button {
+  font: inherit;
+  color: var(--w98-text);
+  background: var(--w98-surface);
+  border: none;
+  box-shadow: var(--w98-border-raised);
+  padding: 4px 12px;
+  min-width: 75px;
+  min-height: 23px;
+  cursor: pointer;
+}
+
+button:active:not(:disabled) {
+  box-shadow: var(--w98-border-sunken);
+  padding: 5px 11px 3px 13px; /* fake the press by shifting label 1px down-right */
+}
+
+button:focus {
+  outline: 1px dotted var(--w98-frame);
+  outline-offset: -4px;
+}
+
+button:disabled {
+  color: var(--w98-shadow);
+  text-shadow: 1px 1px var(--w98-highlight);
+}
+
+/* ---------- Site header (a window-shaped hero) ---------- */
+
+.site-header {
+  margin: 1rem auto 1.5rem;
+  max-width: 960px;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-window);
+  padding: 3px;
+}
+
+.site-header::before {
+  content: "C:\\\\Users\\\\Joshua";
+  display: block;
+  background: linear-gradient(90deg, var(--w98-dialog-blue), var(--w98-dialog-blue-light));
+  color: var(--w98-highlight);
+  font-weight: bold;
+  padding: 3px 6px;
+  margin-bottom: 6px;
+}
+
+.site-header .name {
+  margin: 12px 12px 0;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+.site-header .title {
+  margin: 4px 12px 12px;
+  font-size: 14px;
+  color: var(--w98-shadow);
+}
+
+.site-header .download-resume {
+  margin: 0 12px 12px;
+}
+
+/* ---------- Sections rendered as windows ---------- */
+
+.section {
+  margin: 1.25rem 0;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-window);
+  padding: 3px;
+}
+
+.section > h2 {
+  margin: 0 0 6px;
+  background: linear-gradient(90deg, var(--w98-dialog-blue), var(--w98-dialog-blue-light));
+  color: var(--w98-highlight);
+  font-size: 13px;
+  font-weight: bold;
+  padding: 3px 6px;
+}
+
+.section > *:not(h2) {
+  margin: 8px;
+}
+
+/* ---------- About ---------- */
+
+.about {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.about .profile-pic {
+  width: 96px;
+  height: 96px;
+  background: var(--w98-highlight);
+  box-shadow: var(--w98-border-sunken);
+  padding: 3px;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.about .description {
+  margin: 0;
+}
+
+/* ---------- Experience (date | body grid) ---------- */
+
+.experience-list {
+  list-style: none;
+  margin: 8px;
+  padding: 0;
+}
+
+.experience-item {
+  display: grid;
+  grid-template-columns: minmax(110px, max-content) 1fr;
+  gap: 6px 14px;
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--w98-shadow);
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+}
+
+.experience-dates {
+  color: var(--w98-shadow);
+  white-space: nowrap;
+}
+
+.experience-role {
+  margin: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.experience-company {
+  margin: 2px 0 4px;
+  color: var(--w98-shadow);
+}
+
+.experience-achievements {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+/* ---------- Projects (icon-grid like Program Files) ---------- */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-raised);
+  padding: 6px;
+  text-decoration: none;
+  color: var(--w98-text);
+}
+
+.project-card:active {
+  box-shadow: var(--w98-border-sunken);
+}
+
+.project-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--w98-highlight);
+  box-shadow: var(--w98-border-sunken);
+  padding: 3px;
+}
+
+.project-title {
+  margin: 6px 0 2px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.project-description {
+  margin: 0;
+}
+
+/* ---------- Footer (status bar) ---------- */
+
+.site-footer {
+  max-width: 960px;
+  margin: 1rem auto;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-window);
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+}
+
+.site-footer a {
+  flex: 1;
+  text-align: center;
+  padding: 2px 6px;
+  color: var(--w98-text);
+  text-decoration: none;
+  box-shadow: var(--w98-border-sunken);
+  background: var(--w98-surface);
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}

@@ -75,11 +75,12 @@ function renderProfile(profile: Profile) {
 }
 
 async function loadStyles(theme: string) {
+  // Get the HTML before any themes are changed to be marked as "busy"
+  const html = getStylelessHtml();
   const themeInput = $<HTMLInputElement>("#theme-input");
   const themeApply = $<HTMLButtonElement>("#theme-apply");
   setControlsBusy(true, themeInput, themeApply);
   try {
-    const html = document.documentElement.outerHTML;
     const res = await fetch("/api/styles", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -91,6 +92,14 @@ async function loadStyles(theme: string) {
   } finally {
     setControlsBusy(false, themeInput, themeApply);
   }
+}
+
+function getStylelessHtml() {
+  const clone = document.documentElement.cloneNode(true) as HTMLElement;
+  clone
+    .querySelectorAll("style, link[rel='stylesheet']")
+    .forEach((n) => n.remove());
+  return clone.outerHTML;
 }
 
 function setControlsBusy(
@@ -118,15 +127,14 @@ function setControlsBusy(
 }
 
 function applyCss(css: string) {
-  let el = document.getElementById(
-    "ai-styles-inline",
+  const el = document.getElementById(
+    "ai-styles",
   ) as HTMLStyleElement | null;
-  if (!el) {
-    el = document.createElement("style");
-    el.id = "ai-styles-inline";
-    document.head.appendChild(el);
-  }
-  el.textContent = css;
+  el?.remove();
+  const new_el = document.createElement("style");
+  new_el.id = "ai-styles";
+  new_el.textContent = css;
+  document.head.appendChild(new_el);
 }
 
 function flashInvalid(el: HTMLInputElement) {
