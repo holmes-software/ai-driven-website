@@ -128,9 +128,7 @@ function setControlsBusy(
 }
 
 function applyCss(css: string) {
-  const el = document.getElementById(
-    "ai-styles",
-  ) as HTMLStyleElement | null;
+  const el = document.getElementById("ai-styles") as HTMLStyleElement | null;
   el?.remove();
   const new_el = document.createElement("style");
   new_el.id = "ai-styles";

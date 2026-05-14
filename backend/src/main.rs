@@ -35,7 +35,7 @@ async fn rocket() -> _ {
         cache: cache::build(cache_dir).await,
     };
 
-    rocket::build()
+    let r = rocket::build()
         .attach(cors::Cors)
         .manage(state)
         .mount(
@@ -50,5 +50,15 @@ async fn rocket() -> _ {
         .mount(
             "/api/images",
             rocket::fs::FileServer::from(images_dir).rank(10),
-        )
+        );
+
+    // In release builds, also serve the bundled SPA from PUBLIC_DIR (default
+    // `./public`). In dev we let Vite serve the frontend on its own port.
+    #[cfg(not(debug_assertions))]
+    let r = {
+        let public_dir = std::env::var("PUBLIC_DIR").unwrap_or_else(|_| "./public".to_string());
+        r.mount("/", rocket::fs::FileServer::from(public_dir).rank(20))
+    };
+
+    r
 }

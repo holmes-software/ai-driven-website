@@ -23,23 +23,19 @@
 
   /* Real 98.css border idioms — beveled rectangles via stacked inset shadows. */
   --w98-border-raised:
-    inset -1px -1px var(--w98-frame),
-    inset  1px  1px var(--w98-highlight),
-    inset -2px -2px var(--w98-shadow),
-    inset  2px  2px var(--w98-face);
+    inset -1px -1px var(--w98-frame), inset 1px 1px var(--w98-highlight),
+    inset -2px -2px var(--w98-shadow), inset 2px 2px var(--w98-face);
   --w98-border-sunken:
-    inset -1px -1px var(--w98-highlight),
-    inset  1px  1px var(--w98-frame),
-    inset -2px -2px var(--w98-face),
-    inset  2px  2px var(--w98-shadow);
+    inset -1px -1px var(--w98-highlight), inset 1px 1px var(--w98-frame),
+    inset -2px -2px var(--w98-face), inset 2px 2px var(--w98-shadow);
   --w98-border-window:
-    inset -1px -1px var(--w98-frame),
-    inset  1px  1px var(--w98-face),
-    inset -2px -2px var(--w98-shadow),
-    inset  2px  2px var(--w98-highlight);
+    inset -1px -1px var(--w98-frame), inset 1px 1px var(--w98-face),
+    inset -2px -2px var(--w98-shadow), inset 2px 2px var(--w98-highlight);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -47,7 +43,9 @@ body {
   padding: 0;
   background: #008080; /* the iconic teal desktop */
   color: var(--w98-text);
-  font-family: "MS Sans Serif", "Pixelated MS Sans Serif", Tahoma, Geneva, Verdana, sans-serif;
+  font-family:
+    "MS Sans Serif", "Pixelated MS Sans Serif", Tahoma, Geneva, Verdana,
+    sans-serif;
   font-size: 12px;
   line-height: 1.45;
 }
@@ -136,7 +134,11 @@ button:disabled {
 .site-header::before {
   content: "C:\\\\Users\\\\Joshua";
   display: block;
-  background: linear-gradient(90deg, var(--w98-dialog-blue), var(--w98-dialog-blue-light));
+  background: linear-gradient(
+    90deg,
+    var(--w98-dialog-blue),
+    var(--w98-dialog-blue-light)
+  );
   color: var(--w98-highlight);
   font-weight: bold;
   padding: 3px 6px;
@@ -170,7 +172,11 @@ button:disabled {
 
 .section > h2 {
   margin: 0 0 6px;
-  background: linear-gradient(90deg, var(--w98-dialog-blue), var(--w98-dialog-blue-light));
+  background: linear-gradient(
+    90deg,
+    var(--w98-dialog-blue),
+    var(--w98-dialog-blue-light)
+  );
   color: var(--w98-highlight);
   font-size: 13px;
   font-weight: bold;

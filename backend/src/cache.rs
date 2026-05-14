@@ -1,10 +1,14 @@
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::Arc;
 
 use anyhow::{anyhow, Context, Result};
-use chrono::{DateTime, Duration, Utc};
 use redis::AsyncCommands;
 use tokio::sync::Mutex;
+
+#[cfg(any(debug_assertions, test))]
+use chrono::{DateTime, Duration, Utc};
+#[cfg(any(debug_assertions, test))]
+use std::path::Path;
 
 /// TTL applied to cached CSS, regardless of backend.
 pub const CACHE_TTL_MINUTES: i64 = 1440;
@@ -17,19 +21,24 @@ pub trait StyleCache: Send + Sync {
 }
 
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
 // Disk cache: <datetime>-<theme>-styles.css
+// (debug + test only — release builds always use Redis)
 // ---------------------------------------------------------------------------
 
+#[cfg(any(debug_assertions, test))]
 pub struct DiskCache {
     dir: PathBuf,
 }
 
+#[cfg(any(debug_assertions, test))]
 impl DiskCache {
     pub fn new(dir: PathBuf) -> Self {
         Self { dir }
     }
 }
 
+#[cfg(any(debug_assertions, test))]
 #[rocket::async_trait]
 impl StyleCache for DiskCache {
     async fn get(&self, theme: &str) -> Option<String> {
@@ -54,6 +63,7 @@ impl StyleCache for DiskCache {
     }
 }
 
+#[cfg(any(debug_assertions, test))]
 async fn find_fresh_for_theme(dir: &Path, theme: &str) -> Result<Option<String>> {
     let suffix = format!("-{theme}-styles.css");
     let mut latest: Option<(DateTime<Utc>, PathBuf)> = None;
@@ -147,6 +157,20 @@ impl StyleCache for RedisCache {
 // Selection
 // ---------------------------------------------------------------------------
 
+/// In debug builds, fall back to disk if `REDIS_URL` is unset or unreachable.
+/// In release builds, `REDIS_URL` is required and connection failures panic
+/// — production must not silently degrade to ephemeral disk inside a container.
+#[cfg(not(debug_assertions))]
+pub async fn build(_cache_dir: PathBuf) -> Arc<dyn StyleCache> {
+    let url = std::env::var("REDIS_URL").expect("REDIS_URL is required in release builds");
+    let cache = RedisCache::connect(&url)
+        .await
+        .expect("could not connect to Redis");
+    eprintln!("[cache] using Azure Redis cache");
+    Arc::new(cache)
+}
+
+#[cfg(debug_assertions)]
 pub async fn build(cache_dir: PathBuf) -> Arc<dyn StyleCache> {
     if let Ok(url) = std::env::var("REDIS_URL") {
         match RedisCache::connect(&url).await {

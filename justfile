@@ -7,7 +7,7 @@ set shell := ["bash", "-cu"]
 # Ctrl-C kills both via the recipe's process group.
 run:
     #!/usr/bin/env bash
-    set -u
+    set -ua
     # Refuse to start if something is already on :8000 — usually a leaked
     # backend from a prior run that wasn't cleaned up. Better to fail loud
     # than silently talk to a stale binary.
@@ -34,10 +34,23 @@ test:
     cd backend && cargo test
     cd frontend && npm test
 
-# Build both projects.
-build:
-    cd backend && cargo build --release
-    cd frontend && npm run build
+# Build the production Docker image (frontend bundled into backend).
+build-docker:
+    docker build -t ai-driven-website .
+
+# Test the production Docker image.
+# Run the previously-built docker image with a local redis server.
+run-docker:
+    #!/usr/bin/env bash
+    redis-server &
+    env_arg=""
+    if [[ -f ./backend/.env ]]; then
+        env_arg='--env-file=./backend/.env'
+    fi
+    docker run --network=host \
+        -e REDIS_URL='redis://127.0.0.1:6379' \
+         ${env_arg} \
+        -p 8080:8080 ai-driven-website
 
 # Format both projects in place.
 fmt:
