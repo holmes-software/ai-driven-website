@@ -46,12 +46,12 @@ Two backends, selected at startup:
 
 Only successful LLM responses are cached; built-in fallbacks are not (so a transient outage doesn't poison the cache).
 
-### LLM providers
+### LLM provider
 
-The styles endpoint tries providers in order; if all fail it returns a built-in default stylesheet so the site still works locally with no credentials.
+The styles endpoint calls **Microsoft Foundry** via its OpenAI-compatible chat-completions API. The model is selected on the Foundry side. If the call fails (or no credentials are set), the endpoint returns a built-in default stylesheet so the site still works locally.
 
-1. **Anthropic on Azure** — `AZURE_ANTHROPIC_URL` (full request URL), `AZURE_ANTHROPIC_API_KEY`, `AZURE_ANTHROPIC_MODEL` (default `claude-sonnet-4-7`).
-2. **Azure OpenAI** — `AZURE_OPENAI_URL` (full request URL, e.g. `https://<resource>.openai.azure.com/openai/deployments/<deployment>/chat/completions?api-version=2024-08-01-preview`), `AZURE_OPENAI_API_KEY`.
+- `AZURE_FOUNDRY_URL` — full request URL for your Foundry deployment's chat-completions endpoint.
+- `AZURE_FOUNDRY_API_KEY` — API key for the deployment.
 
 ## Running locally
 

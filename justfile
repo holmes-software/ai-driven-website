@@ -8,12 +8,26 @@ set shell := ["bash", "-cu"]
 run:
     #!/usr/bin/env bash
     set -u
-    # `kill 0` signals the entire process group (this script + children),
-    # so Ctrl-C reliably tears down `cargo run` and `vite` together.
-    trap 'kill 0' SIGINT SIGTERM
-    (cd backend && cargo run 2>&1 | sed -u 's/^/\x1b[31m[BACKEND]\x1b[0m  /') &
+    # Refuse to start if something is already on :8000 — usually a leaked
+    # backend from a prior run that wasn't cleaned up. Better to fail loud
+    # than silently talk to a stale binary.
+    if ss -ltn 'sport = :8000' | grep -q LISTEN; then
+        echo "Port 8000 is already in use. Run 'just kill' to clear stale dev servers." >&2
+        exit 1
+    fi
+    # SIGHUP catches terminal close (window/SSH); SIGINT catches Ctrl-C;
+    # SIGTERM catches `kill <pid>`. `kill 0` signals the whole process group.
+    trap 'kill 0' SIGINT SIGTERM SIGHUP
+    (cd backend && source .env; cargo run 2>&1 | sed -u 's/^/\x1b[31m[BACKEND]\x1b[0m  /') &
     (cd frontend && npm run dev 2>&1 | sed -u 's/^/\x1b[32m[FRNTEND]\x1b[0m /') &
     wait
+
+# Kill any leaked dev servers from a previous `just run`.
+kill:
+    #!/usr/bin/env bash
+    pkill -f 'target/(debug|release)/backend' || true
+    pkill -f 'vite'                           || true
+    echo "cleaned up"
 
 # Run backend tests, then frontend tests.
 test:

@@ -73,15 +73,37 @@ function renderProfile(profile: Profile) {
 }
 
 async function loadStyles(theme: string) {
-  const html = document.documentElement.outerHTML;
-  const res = await fetch("/api/styles", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ html, theme }),
-  });
-  if (!res.ok) throw new Error(`styles fetch failed: ${res.status}`);
-  const { css } = (await res.json()) as { css: string; source: string };
-  applyCss(css);
+  const themeInput = $<HTMLInputElement>("#theme-input");
+  const themeApply = $<HTMLButtonElement>("#theme-apply");
+  setControlsBusy(true, themeInput, themeApply);
+  try {
+    const html = document.documentElement.outerHTML;
+    const res = await fetch("/api/styles", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ html, theme }),
+    });
+    if (!res.ok) throw new Error(`styles fetch failed: ${res.status}`);
+    const { css } = (await res.json()) as { css: string; source: string };
+    applyCss(css);
+  } finally {
+    setControlsBusy(false, themeInput, themeApply);
+  }
+}
+
+function setControlsBusy(
+  busy: boolean,
+  input: HTMLInputElement | null,
+  button: HTMLButtonElement | null,
+) {
+  if (input) {
+    input.disabled = busy;
+    input.setAttribute("aria-busy", String(busy));
+  }
+  if (button) {
+    button.disabled = busy;
+    button.setAttribute("aria-busy", String(busy));
+  }
 }
 
 function applyCss(css: string) {
@@ -141,7 +163,6 @@ async function main() {
   wireControls();
   const profile = await fetchProfile();
   renderProfile(profile);
-  await loadStyles("modern");
 }
 
 main().catch((e) => {
