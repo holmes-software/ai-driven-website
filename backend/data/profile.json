@@ -46,13 +46,13 @@
     {
       "title": "Bevy",
       "description": "A refreshingly simple data-driven game engine built in Rust. Assisted in redesign of single-threaded data store and communication with multi-threaded data; communicated with 30+ stakeholders to craft a fitting solution; documented new design and detailed technical implementation plans.",
-      "image": "/api/images/projects/cli-toolkit.svg",
+      "image": "/api/images/projects/bevy.png",
       "link": "https://github.com/bevyengine/bevy"
     },
     {
       "title": "Mach",
       "description": "High-performance, truly cross-platform, robust & modular game engine, visualizations, and desktop/mobile GUI apps. Reintroduced native Linux support with X11 and Wayland using Zig after it had been scrapped due to lack of Linux developers, resulting in support for all major desktop platforms.",
-      "image": "/api/images/projects/scheduler.svg",
+      "image": "/api/images/projects/mach.svg",
       "link": "https://github.com/hexops/mach"
     }
   ]
