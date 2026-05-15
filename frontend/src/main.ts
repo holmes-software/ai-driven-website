@@ -42,13 +42,20 @@ function renderProfile(profile: Profile) {
       .map(
         (e) => `
           <li class="experience-item">
-            <span class="experience-marker" aria-hidden="true"></span>
-            <time class="experience-dates">${escapeHtml(e.start)} — ${
-              e.end ? escapeHtml(e.end) : "Present"
-            }</time>
             <div class="experience-body">
-              <h3 class="experience-role">${escapeHtml(e.title)}</h3>
-              <p class="experience-company">${escapeHtml(e.company)}</p>
+              <div class="experience-header">
+                <div class="experience-heading">
+                  <h3 class="experience-role">${escapeHtml(e.title)}</h3>
+                  <p class="experience-company">${escapeHtml(e.company)}</p>
+                </div>
+                <p class="experience-dates" aria-label="${escapeHtml(e.start)} to ${
+                  e.end ? escapeHtml(e.end) : "Present"
+                }">
+                  <time>${escapeHtml(e.start)}</time>
+                  <span aria-hidden="true">to</span>
+                  <time>${e.end ? escapeHtml(e.end) : "Present"}</time>
+                </p>
+              </div>
               <ul class="experience-achievements">
                 ${e.achievements.map((a) => `<li>${escapeHtml(a)}</li>`).join("")}
               </ul>

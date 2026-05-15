@@ -85,4 +85,3 @@ This repo uses [`just`](https://github.com/casey/just) as the task runner.
 | `just fmt-check` | `cargo fmt -- --check` + `prettier --check`. |
 
 Backend listens on `:8000`, Vite on `:5173` (proxies `/api` → backend). Open http://localhost:5173.
-

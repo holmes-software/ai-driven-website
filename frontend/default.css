@@ -209,39 +209,47 @@ button:disabled {
   margin: 0;
 }
 
-/* ---------- Experience (date | body grid) ---------- */
+/* ---------- Experience (self-contained cards) ---------- */
 
 .experience-list {
   list-style: none;
   margin: 8px;
   padding: 0;
+  display: grid;
+  gap: 8px;
 }
 
 .experience-item {
-  display: grid;
-  grid-template-columns: auto minmax(110px, max-content) 1fr;
-  align-items: start;
-  padding: 8px 0;
-  border-bottom: 1px dotted var(--w98-shadow);
+  display: block;
+  background: var(--w98-surface);
+  box-shadow: var(--w98-border-sunken);
+  padding: 8px;
 }
 
-.experience-item:last-child {
-  border-bottom: none;
+.experience-header {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.experience-heading {
+  min-width: 0;
 }
 
 .experience-dates {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 100%;
+  margin: 0;
   color: var(--w98-shadow);
-  white-space: nowrap;
-  margin-right: 14px;
-}
-
-/*
- * Marker slot reserved for the LLM. Hidden by default so the Win98 look
- * stays a clean two-column layout. When the LLM wants a timeline dot/rail,
- * it can override `display` and the middle grid track will grow to fit.
- */
-.experience-marker {
-  display: none;
+  white-space: normal;
+  text-align: right;
+  flex: 0 1 auto;
 }
 
 .experience-role {
@@ -256,7 +264,7 @@ button:disabled {
 }
 
 .experience-achievements {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   padding-left: 18px;
 }
 
