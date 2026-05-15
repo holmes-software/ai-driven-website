@@ -125,7 +125,11 @@ impl RedisCache {
     }
 
     fn key(theme: &str) -> String {
-        format!("styles:{theme}")
+        let cache_version = {
+            let v = option_env!("CACHE_VERSION").unwrap_or_default();
+            if v.is_empty() { "dev" } else { v }
+        };
+        format!("styles:{}:{theme}", cache_version)
     }
 }
 

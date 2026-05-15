@@ -43,6 +43,8 @@ jobs:
           containerAppName: ai-website-app
           resourceGroup: ai-website-resource-group
           imageToBuild: genericregistry.azurecr.io/ai-website-app:${{ github.sha }}
+          buildArguments: |
+            CACHE_VERSION=${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
 

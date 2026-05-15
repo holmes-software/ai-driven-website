@@ -11,6 +11,7 @@ RUN npm run build
 
 # ---------- Stage 2: build the Rust binary in release mode ----------
 FROM rust:1-bookworm AS backend
+ARG CACHE_VERSION
 WORKDIR /src
 # Cache deps separately from source for faster rebuilds.
 COPY backend/Cargo.toml backend/Cargo.lock ./backend/
@@ -18,7 +19,7 @@ RUN mkdir -p backend/src && echo "fn main() {}" > backend/src/main.rs \
     && cd backend && cargo build --release --quiet \
     && rm -rf src target/release/deps/backend* target/release/backend*
 COPY backend ./backend
-RUN cd backend && cargo build --release --quiet
+RUN cd backend && CACHE_VERSION=${CACHE_VERSION} cargo build --release --quiet
 
 # ---------- Stage 3: minimal runtime image ----------
 FROM debian:bookworm-slim
