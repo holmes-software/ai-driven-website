@@ -166,7 +166,7 @@ pub async fn build(_cache_dir: PathBuf) -> Arc<dyn StyleCache> {
     let cache = RedisCache::connect(&url)
         .await
         .expect("could not connect to Redis");
-    eprintln!("[cache] using Azure Redis cache");
+    println!("[cache] using Redis cache");
     Arc::new(cache)
 }
 
@@ -175,15 +175,15 @@ pub async fn build(cache_dir: PathBuf) -> Arc<dyn StyleCache> {
     if let Ok(url) = std::env::var("REDIS_URL") {
         match RedisCache::connect(&url).await {
             Ok(c) => {
-                eprintln!("[cache] using Azure Redis cache");
+                println!("[cache] using Redis cache");
                 return Arc::new(c);
             }
             Err(e) => {
-                eprintln!("[cache] Redis unavailable, falling back to disk: {e:#}");
+                println!("[cache] Redis unavailable, falling back to disk: {e:#}");
             }
         }
     } else {
-        eprintln!("[cache] REDIS_URL not set; using disk cache at {cache_dir:?}");
+        println!("[cache] REDIS_URL not set; using disk cache at {cache_dir:?}");
     }
     Arc::new(DiskCache::new(cache_dir))
 }

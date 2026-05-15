@@ -57,9 +57,12 @@ run-docker:
          ${env_arg} \
         -p 8080:8080 ai-driven-website
 
-# Tar and send the repo to Azure to be built and pushed to ACR
+# Tar and send the repo to Azure to be built and pushed to ACR.
+# This will not deploy to production env, that can only be done by GitHub actions.
 push-acr:
-    ./push_acr.sh
+    az acr build \
+        --image "ai-driven-website/bundle:local-build" \
+        --registry genericregistry .
 
 # Format both projects in place.
 fmt:
