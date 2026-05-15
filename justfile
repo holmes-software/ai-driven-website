@@ -25,8 +25,8 @@ run:
 # Kill any leaked dev servers from a previous `just run`.
 kill:
     #!/usr/bin/env bash
-    pkill -f 'target/(debug|release)/backend' || true
-    pkill -f 'vite'                           || true
+    pkill -KILL -f 'target/(debug|release)/backend' || true
+    pkill -KILL -f 'vite'                           || true
     echo "cleaned up"
 
 # Run backend tests, then frontend tests.

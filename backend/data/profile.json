@@ -1,39 +1,38 @@
 {
   "about": {
-    "description": "Software engineer with a decade of experience building web platforms, distributed services, and developer tooling. I enjoy turning ambiguous problems into pragmatic, maintainable systems and mentoring teammates along the way.",
-    "profile_pic": "/api/images/profile.svg"
+    "description": "Software Engineer at Microsoft with 4+ years experience in Rust, Zig, C, C#, Python, and TypeScript. Designed and lead front end work for porting satellite imagery viewer from legacy app to new app that we developed for thousands of sales reps and growers, which resulted in giving sales reps and growers powerful insights into grower's field health and allows sales reps to be a more knowledgeable resource to their customers.",
+    "profile_pic": "/api/images/profile.jpg"
   },
   "experience": [
     {
-      "title": "Senior Software Engineer",
-      "company": "GitHub",
-      "start": "2022-03",
+      "title": "Software Engineer",
+      "company": "Microsoft",
+      "start": "Jan 2026",
       "end": null,
       "achievements": [
-        "Led the design and rollout of a service that handles millions of requests per day with sub-100ms p99 latency.",
-        "Mentored four junior engineers; two were promoted within a year.",
-        "Drove an initiative to consolidate three legacy services, cutting infrastructure cost by 38%."
+        "Building out Azure datacenters across the globe."
       ]
     },
     {
-      "title": "Software Engineer",
-      "company": "Microsoft",
-      "start": "2018-06",
-      "end": "2022-02",
+      "title": "Sr. Software Engineer I",
+      "company": "Corteva Agriscience",
+      "start": "Apr 2023",
+      "end": "Jan 2026",
       "achievements": [
-        "Shipped key features in Azure DevOps used by tens of thousands of teams.",
-        "Authored an internal Rust library adopted by five product teams.",
-        "Recognized with a quarterly engineering excellence award."
+        "Led team's transition to common Docker, Bash, Terraform and Python tooling for CI/CD pipeline, unit tests, code-base structure, and more, for 15 repos resulting in uniform configuration across the team and organization for better maintainability.",
+        "Created new backend service for generating PDF field reports with SQS queue, AWS Lambda, and S3, to be used by up to 5k sales reps and growers when released to collect data about a farm field in a printable format.",
+        "Maintained containerized microservices to ingest 20M+ acres of satellite imagery of farm fields per year in Postgres DB, AWS S3 buckets, and AWS Lambdas, used by thousands of sales reps and growers to analyze and compare vegetative health."
       ]
     },
     {
       "title": "Software Developer",
-      "company": "Acme Corp",
-      "start": "2015-09",
-      "end": "2018-05",
+      "company": "StatHero",
+      "start": "Mar 2022",
+      "end": "Apr 2023",
       "achievements": [
-        "Built the company's first React-based admin dashboard from scratch.",
-        "Reduced page load time on the marketing site by 60% through bundling and CDN work."
+        "Saved $50,000 per year by developing web scraping bot using Node.js and Puppeteer on Google Cloud instance to retrieve data for internal MongoDB/Express.js sports API.",
+        "Built frontend reporting tools for internal app using Angular and TS to provide financial visibility.",
+        "Architected and developed new Affiliate and Referral programs with Python and Firebase to increase user base and engage new users."
       ]
     }
   ],
@@ -45,16 +44,16 @@
       "link": "https://github.com/holmes-software/ai-driven-website"
     },
     {
-      "title": "Open Source CLI Toolkit",
-      "description": "A collection of small, composable command-line utilities for everyday developer workflows, written in Rust.",
+      "title": "Bevy",
+      "description": "A refreshingly simple data-driven game engine built in Rust. Assisted in redesign of single-threaded data store and communication with multi-threaded data; communicated with 30+ stakeholders to craft a fitting solution; documented new design and detailed technical implementation plans.",
       "image": "/api/images/projects/cli-toolkit.svg",
-      "link": "https://github.com/holmes-software"
+      "link": "https://github.com/bevyengine/bevy"
     },
     {
-      "title": "Distributed Job Scheduler",
-      "description": "A horizontally scalable job scheduler with at-least-once delivery semantics, built as a learning exercise in distributed systems.",
+      "title": "Mach",
+      "description": "High-performance, truly cross-platform, robust & modular game engine, visualizations, and desktop/mobile GUI apps. Reintroduced native Linux support with X11 and Wayland using Zig after it had been scrapped due to lack of Linux developers, resulting in support for all major desktop platforms.",
       "image": "/api/images/projects/scheduler.svg",
-      "link": "https://github.com/holmes-software"
+      "link": "https://github.com/hexops/mach"
     }
   ]
 }
