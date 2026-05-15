@@ -5,7 +5,6 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 mod cache;
-mod cors;
 mod llm;
 mod profile;
 mod resume;
@@ -36,7 +35,6 @@ async fn rocket() -> _ {
     };
 
     let r = rocket::build()
-        .attach(cors::Cors)
         .manage(state)
         .mount(
             "/api",
